@@ -15,10 +15,12 @@ Chosen methods include:
 
 ## Recommended Installs:
 
-[Base32Hex] (https://pypi.org/project/base32hex/)
-Python RFC 4648 base32hex implementation
-'pip install base32hex'
+[Base32Hex](https://pypi.org/project/base32hex/)
+: Python RFC 4648 base32hex implementation
 
-[PyCrypto] (https://pypi.org/project/pycrypto/)
-Python cyptography toolkit
-'pip install pycrypto'
+`pip install base32hex`
+
+[PyCrypto](https://pypi.org/project/pycrypto/)
+: Python cyptography toolkit
+
+`pip install pycrypto`
