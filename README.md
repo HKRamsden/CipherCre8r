@@ -20,7 +20,7 @@ Chosen methods include:
 
 `pip install base32hex`
 
-[PyCrypto](https://pypi.org/project/pycrypto/)
+[PyCryptoDome](https://pypi.org/project/pycryptodome/)
 : Python cyptography toolkit
 
 `pip install pycrypto`
