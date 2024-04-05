@@ -17,7 +17,27 @@ root.title("CipherCr8r")
 root.geometry('500x500')
 root.configure(bg=eerieBlack)
 
-
+## List Box ##
+listboxBorder = Frame(root,
+                      highlightbackground = resedaGreen,
+                      highlightcolor = mint,
+                      bg = resedaGreen, 
+                      highlightthickness= 5, 
+                      bd = 0)
+listboxBorder.place(relx = 0.01, rely = 0.01)
+listbox = Listbox(listboxBorder,
+                  font = "Arial 15",
+                  fg = eerieBlack,
+                  bg = feldgrau,
+                  highlightcolor = mint,
+                  width = 10,
+                  height = 5)
+listbox.insert(1, "AES")
+listbox.insert(2, "DES")
+listbox.insert(3, "CBC")
+listbox.insert(4, "CFB")
+listbox.insert(5, "CTR")
+listbox.pack()
 
 
 
