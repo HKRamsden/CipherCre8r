@@ -22,12 +22,21 @@ root.configure(bg=eerieBlack)
 
 
 ## AES Encryption ##
-data = b'secret data'
+plaintext = b'secret data'
 key = get_random_bytes(16)
 cipher = AES.new(key, AES.MODE_EAX)
-ciphertext, tag = cipher.encrypt_and_digest(data)
+ciphertext, tag = cipher.encrypt_and_digest(plaintext)
 nonce = cipher.nonce
-print(ciphertext)
+stored_text = nonce + tag + ciphertext
+
+print(stored_text)
+
+cipher = AES.new(key, AES.MODE_EAX, nonce)
+data = cipher.decrypt_and_verify(ciphertext, tag)
+
+print(data)
+
+    
 
 # Execute Tkinter
 root.mainloop()
