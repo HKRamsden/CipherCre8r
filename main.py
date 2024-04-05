@@ -17,6 +17,28 @@ root.title("CipherCr8r")
 root.geometry('500x500')
 root.configure(bg=eerieBlack)
 
+
+### ENCRYPTION METHODS HERE ###
+
+## AES Encryption ##
+plaintext = b'secret data'
+key = get_random_bytes(16)
+cipher = AES.new(key, AES.MODE_EAX)
+ciphertext, tag = cipher.encrypt_and_digest(plaintext)
+nonce = cipher.nonce
+stored_text = nonce + tag + ciphertext
+
+print(stored_text)
+
+cipher = AES.new(key, AES.MODE_EAX, nonce)
+data = cipher.decrypt_and_verify(ciphertext, tag)
+
+print(data)
+
+### APP COMMANDS HERE ###
+
+### UI DESIGN HERE ###
+
 ## List Box ##
 listboxBorder = Frame(root,
                       highlightbackground = resedaGreen,
@@ -39,22 +61,23 @@ listbox.insert(4, "CFB")
 listbox.insert(5, "CTR")
 listbox.pack()
 
-
-
-## AES Encryption ##
-plaintext = b'secret data'
-key = get_random_bytes(16)
-cipher = AES.new(key, AES.MODE_EAX)
-ciphertext, tag = cipher.encrypt_and_digest(plaintext)
-nonce = cipher.nonce
-stored_text = nonce + tag + ciphertext
-
-print(stored_text)
-
-cipher = AES.new(key, AES.MODE_EAX, nonce)
-data = cipher.decrypt_and_verify(ciphertext, tag)
-
-print(data)
+## Select Option Button ##
+selectOptBorder = Frame(root,
+                        highlightbackground = resedaGreen,
+                        highlightcolor = mint,
+                        bg = resedaGreen,
+                        highlightthickness = 5,
+                        bd = 0)
+selectOptBorder.place(relx = 0.27, rely = 0.01)
+selectOptButton = Button(selectOptBorder, 
+                         text = "Select Mode",
+                         font = "Arial 15",
+                         fg = eerieBlack,
+                         bg = feldgrau,
+                         highlightcolor = mint,
+                         width = 10, 
+                         height = 2)
+selectOptButton.pack()
 
     
 
