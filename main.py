@@ -121,7 +121,7 @@ currentChoiceBorder = Frame(root,
                             bd = 0)
 currentChoiceBorder.place(relx = 0.55, rely = 0.01)
 messageVar = Button(currentChoiceBorder, 
-                     text = "",
+                     text = "Current Mode: ",
                      font = "Arial 15",
                      fg = eerieBlack,
                      bg = feldgrau,
