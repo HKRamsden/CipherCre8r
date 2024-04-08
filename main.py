@@ -73,17 +73,9 @@ def getEncryptionSelection():
     for i in listbox.curselection():
         print(listbox.get(i))
         mode = listbox.get(i)
-    textMessage = ('Selected Mode: ' + mode)
+        messageVar.config(text = "Current Mode: " + mode)
     
-    messageVar = Button(currentChoiceBorder, 
-                     text = textMessage,
-                     font = "Arial 15",
-                     fg = eerieBlack,
-                     bg = feldgrau,
-                     highlightcolor= mint,
-                     width = 17,
-                     height = 2)
-    messageVar.pack()
+    
     
 
 ## Select Option Button ##
@@ -128,7 +120,15 @@ currentChoiceBorder = Frame(root,
                             highlightthickness = 5,
                             bd = 0)
 currentChoiceBorder.place(relx = 0.55, rely = 0.01)
-
+messageVar = Button(currentChoiceBorder, 
+                     text = "",
+                     font = "Arial 15",
+                     fg = eerieBlack,
+                     bg = feldgrau,
+                     highlightcolor= mint,
+                     width = 17,
+                     height = 2)
+messageVar.pack()
 
 
 # Execute Tkinter
