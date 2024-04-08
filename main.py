@@ -38,12 +38,7 @@ data = cipher.decrypt_and_verify(ciphertext, tag)
 print(data)
 
 ### APP COMMANDS HERE ###
-## Get Encryption Selection
-def getEncryptionSelection():
-    for i in listbox.curselection():
-        print(listbox.get(i))
-        mode = listbox.get(i)
-    return mode
+
 
 # Encrypt Plaintext Using Chosen Mode #
 def plaintextEncryption():
@@ -72,6 +67,24 @@ listbox.insert(3, "CBC")
 listbox.insert(4, "CFB")
 listbox.insert(5, "CTR")
 listbox.pack()
+
+## Get Encryption Selection
+def getEncryptionSelection():
+    for i in listbox.curselection():
+        print(listbox.get(i))
+        mode = listbox.get(i)
+    textMessage = ('Selected Mode: ' + mode)
+    
+    messageVar = Button(currentChoiceBorder, 
+                     text = textMessage,
+                     font = "Arial 15",
+                     fg = eerieBlack,
+                     bg = feldgrau,
+                     highlightcolor= mint,
+                     width = 17,
+                     height = 2)
+    messageVar.pack()
+    
 
 ## Select Option Button ##
 selectOptBorder = Frame(root,
@@ -106,6 +119,17 @@ plaintextEntry = Entry(plaintextEnterBorder,
                        fg = eerieBlack,
                        bg= feldgrau)
 plaintextEntry.pack()
+
+## Text Box for Encryption Choice ## 
+currentChoiceBorder = Frame(root,
+                            highlightbackground = resedaGreen,
+                            highlightcolor = mint,
+                            bg = resedaGreen,
+                            highlightthickness = 5,
+                            bd = 0)
+currentChoiceBorder.place(relx = 0.55, rely = 0.01)
+
+
 
 # Execute Tkinter
 root.mainloop()
