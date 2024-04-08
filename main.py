@@ -17,6 +17,7 @@ root.configure(bg=eerieBlack)
 
 ### VARIABLES HERE ###
 enterPlaintext = StringVar()
+enterKey = StringVar()
 
 ### ENCRYPTION METHODS HERE ###
 
@@ -102,7 +103,6 @@ plaintextEnterBorder = Frame(root,
                              bd = 0)
 plaintextEnterBorder.place(relx = 0.27, rely = 0.18) 
 plaintextEntry = Entry(plaintextEnterBorder, 
-                       text = "Enter Plaintext",
                        textvariable = enterPlaintext,
                        font = "Arial 20", 
                        fg = eerieBlack,
@@ -110,12 +110,37 @@ plaintextEntry = Entry(plaintextEnterBorder,
                        width = 21)
 
 # Temporary Text #
-def tempText(e):
-    plaintextEntry.delete(0, "end")
+def tempPlainText(e):
+    plaintextEntry.delete(0, "end") 
 
 plaintextEntry.insert(0, "Enter Plaintext Here")
-plaintextEntry.bind("<FocusIn>", tempText)
+plaintextEntry.bind("<FocusIn>", tempPlainText)
 plaintextEntry.pack()
+
+## Text Entry for Key ##
+keyEnterBorder = Frame(root,
+                       highlightbackground = resedaGreen,
+                       highlightcolor = mint,
+                       bg = resedaGreen, 
+                       highlightthickness = 5, 
+                       bd = 0)
+keyEnterBorder.place (relx = 0.27, rely = 0.30)
+keyEntry = Entry(keyEnterBorder, 
+                 textvariable= enterKey,
+                 font = "Arial 20",
+                 fg = eerieBlack,
+                 bg = feldgrau,
+                 width = 21)
+
+# Temporary Text #
+def tempKeyText(e):
+    keyEntry.delete(0, "end")
+
+keyEntry.insert(0, "Enter Key Here")
+keyEntry.bind("<FocusIn>", tempKeyText)
+keyEntry.pack()
+    
+
 
 ## Text Box for Encryption Choice ## 
 currentChoiceBorder = Frame(root,
