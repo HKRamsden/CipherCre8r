@@ -23,4 +23,4 @@ Chosen methods include:
 [PyCryptoDome](https://pypi.org/project/pycryptodome/)
 : Python cyptography toolkit
 
-`pip install pycrypto`
+`pip install pycryptodome`
