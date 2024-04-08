@@ -3,8 +3,6 @@ from tkinter import *
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 
-
-
 # Saving Color Codes #
 eerieBlack = "#1D1E18"
 feldgrau = "#445745"
@@ -44,6 +42,7 @@ print(data)
 def plaintextEncryption():
     plainText = enterPlaintext.get()
 
+
 ### UI DESIGN HERE ###
 
 ## List Box ##
@@ -74,9 +73,6 @@ def getEncryptionSelection():
         print(listbox.get(i))
         mode = listbox.get(i)
         messageVar.config(text = "Current Mode: " + mode)
-    
-    
-    
 
 ## Select Option Button ##
 selectOptBorder = Frame(root,
@@ -106,10 +102,19 @@ plaintextEnterBorder = Frame(root,
                              bd = 0)
 plaintextEnterBorder.place(relx = 0.27, rely = 0.18) 
 plaintextEntry = Entry(plaintextEnterBorder, 
+                       text = "Enter Plaintext",
                        textvariable = enterPlaintext,
                        font = "Arial 20", 
                        fg = eerieBlack,
-                       bg= feldgrau)
+                       bg= feldgrau,
+                       width = 21)
+
+# Temporary Text #
+def tempText(e):
+    plaintextEntry.delete(0, "end")
+
+plaintextEntry.insert(0, "Enter Plaintext Here")
+plaintextEntry.bind("<FocusIn>", tempText)
 plaintextEntry.pack()
 
 ## Text Box for Encryption Choice ## 
@@ -126,9 +131,11 @@ messageVar = Button(currentChoiceBorder,
                      fg = eerieBlack,
                      bg = feldgrau,
                      highlightcolor= mint,
-                     width = 17,
+                     width = 15,
                      height = 2)
 messageVar.pack()
+
+
 
 
 # Execute Tkinter
