@@ -79,7 +79,19 @@ selectOptButton = Button(selectOptBorder,
                          height = 2)
 selectOptButton.pack()
 
-    
+## Text Entry for Plaintext ##
+plaintextEnterBorder = Frame(root, 
+                             highlightbackground = resedaGreen,
+                             highlightcolor = mint,
+                             bg = resedaGreen, 
+                             highlightthickness = 5,
+                             bd = 0)
+plaintextEnterBorder.place(relx = 0.27, rely = 0.18) 
+plaintextEntry = Entry(plaintextEnterBorder, 
+                       font = "Arial 20", 
+                       fg = eerieBlack,
+                       bg= feldgrau)
+plaintextEntry.pack()
 
 # Execute Tkinter
 root.mainloop()
