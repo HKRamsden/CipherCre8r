@@ -38,6 +38,16 @@ data = cipher.decrypt_and_verify(ciphertext, tag)
 print(data)
 
 ### APP COMMANDS HERE ###
+## Get Encryption Selection
+def getEncryptionSelection():
+    for i in listbox.curselection():
+        print(listbox.get(i))
+        mode = listbox.get(i)
+    return mode
+
+# Encrypt Plaintext Using Chosen Mode #
+def plaintextEncryption():
+    plainText = enterPlaintext.get()
 
 ### UI DESIGN HERE ###
 
@@ -78,7 +88,8 @@ selectOptButton = Button(selectOptBorder,
                          bg = feldgrau,
                          highlightcolor = mint,
                          width = 10, 
-                         height = 2)
+                         height = 2,
+                         command = getEncryptionSelection)
 selectOptButton.pack()
 
 ## Text Entry for Plaintext ##
