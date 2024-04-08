@@ -17,6 +17,8 @@ root.title("CipherCr8r")
 root.geometry('500x500')
 root.configure(bg=eerieBlack)
 
+### VARIABLES HERE ###
+enterPlaintext = StringVar()
 
 ### ENCRYPTION METHODS HERE ###
 
@@ -88,6 +90,7 @@ plaintextEnterBorder = Frame(root,
                              bd = 0)
 plaintextEnterBorder.place(relx = 0.27, rely = 0.18) 
 plaintextEntry = Entry(plaintextEnterBorder, 
+                       textvariable = enterPlaintext,
                        font = "Arial 20", 
                        fg = eerieBlack,
                        bg= feldgrau)
