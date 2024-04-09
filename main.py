@@ -190,17 +190,53 @@ encryptButtonBorder = Frame(root,
                             bg = resedaGreen,
                             highlightthickness= 5,
                             bd = 0)
-encryptButtonBorder.place(relx = 0.01, rely = 0.4)
+encryptButtonBorder.place(relx = 0.01, rely = 0.3)
 encryptButton = Button(encryptButtonBorder,
                          text = "Encrypt",
                          font = "Arial 15",
                          fg = eerieBlack,
                          bg = feldgrau,
                          highlightcolor = mint,
-                         width = 10, 
+                         width = 40, 
                          height = 2,
                          command = plaintextEncryption)
 encryptButton.pack()
+
+## Label for Encrypted Message ##
+encMessageBorder = Frame(root, 
+                         highlightbackground = resedaGreen,
+                         highlightcolor = mint,
+                         bg = resedaGreen, 
+                         highlightthickness = 5, 
+                         bd = 0)
+encMessageBorder.place(relx = 0.01, rely = 0.47)
+encMessage = Label(encMessageBorder,
+                   text = "Encrypted message will appear here!",
+                   font = "Arial 15",
+                   fg = eerieBlack,
+                   bg = feldgrau,
+                   highlightcolor = mint,
+                   width = 40,
+                   height = 4)
+encMessage.pack()
+
+## Label for Decrypted Message ## 
+decMessageBorder = Frame(root,
+                         highlightbackground= resedaGreen,
+                         highlightcolor= mint,
+                         bg = resedaGreen,
+                         highlightthickness= 5,
+                         bd = 0)
+decMessageBorder.place(relx = 0.01, rely = 0.7)
+decMessage = Label(decMessageBorder, 
+                   text= "Decrypted Message will appear here!",
+                   font = "Arial 15",
+                   fg = eerieBlack,
+                   bg = feldgrau,
+                   highlightcolor= mint,
+                   width = 40,
+                   height= 4)
+decMessage.pack()
 
 # Execute Tkinter
 root.mainloop()
