@@ -17,24 +17,53 @@ root.configure(bg=eerieBlack)
 
 ### VARIABLES HERE ###
 enterPlaintext = StringVar()
-enterKey = StringVar()
+
 
 ### ENCRYPTION METHODS HERE ###
 
 ## AES Encryption ##
-plaintext = b'secret data'
-key = get_random_bytes(16)
-cipher = AES.new(key, AES.MODE_EAX)
-ciphertext, tag = cipher.encrypt_and_digest(plaintext)
-nonce = cipher.nonce
-stored_text = nonce + tag + ciphertext
+def aesFunc(plaintext):
+    aesplaintext = plaintext.encode('utf-8')
+    key = get_random_bytes(16)
+    cipher = AES.new(key, AES.MODE_EAX)
+    ciphertext, tag = cipher.encrypt_and_digest(aesplaintext)
+    nonce = cipher.nonce
+    stored_text = nonce + tag + ciphertext
 
-print(stored_text)
+    print(stored_text)
 
-cipher = AES.new(key, AES.MODE_EAX, nonce)
-data = cipher.decrypt_and_verify(ciphertext, tag)
+    cipher = AES.new(key, AES.MODE_EAX, nonce)
+    data = cipher.decrypt_and_verify(ciphertext, tag)
+    print(data)
+    decodedStr = str(data, encoding = 'utf-8')
+    print(decodedStr)
 
-print(data)
+## DES Encryption ##
+# not complete, still developing
+def desFunc(plaintext):
+    print("Mode: DES")
+    print(plaintext)
+
+
+## CBC Encryption
+## Not complete, still developing
+def cbcFunc(plaintext):
+    print("Mode: CBC")
+    print(plaintext)
+
+
+## CFB Encryption ##
+## Not complete, still developing
+def cfbFunc(plaintext):
+    print("Mode: CFB")
+    print(plaintext)
+
+    
+## CTR Encryption ##
+def ctrFunc(plaintext):
+    print("Mode: CTR")
+    print(plaintext)
+
 
 ### APP COMMANDS HERE ###
 
@@ -42,6 +71,25 @@ print(data)
 # Encrypt Plaintext Using Chosen Mode #
 def plaintextEncryption():
     plainText = enterPlaintext.get()
+ 
+    for i in listbox.curselection():
+        mode = listbox.get(i)
+        match mode:
+            case "AES":
+                aesFunc(plainText)
+            case "DES":
+                desFunc(plainText)
+            case "CBC":
+                cbcFunc(plainText)
+            case "CFB":
+                cfbFunc(plainText)
+            case "CTR":
+                ctrFunc(plainText)
+
+                
+    
+    
+    
 
 
 ### UI DESIGN HERE ###
@@ -117,31 +165,7 @@ plaintextEntry.insert(0, "Enter Plaintext Here")
 plaintextEntry.bind("<FocusIn>", tempPlainText)
 plaintextEntry.pack()
 
-## Text Entry for Key ##
-keyEnterBorder = Frame(root,
-                       highlightbackground = resedaGreen,
-                       highlightcolor = mint,
-                       bg = resedaGreen, 
-                       highlightthickness = 5, 
-                       bd = 0)
-keyEnterBorder.place (relx = 0.27, rely = 0.30)
-keyEntry = Entry(keyEnterBorder, 
-                 textvariable= enterKey,
-                 font = "Arial 20",
-                 fg = eerieBlack,
-                 bg = feldgrau,
-                 width = 21)
-
-# Temporary Text #
-def tempKeyText(e):
-    keyEntry.delete(0, "end")
-
-keyEntry.insert(0, "Enter Key Here")
-keyEntry.bind("<FocusIn>", tempKeyText)
-keyEntry.pack()
     
-
-
 ## Text Box for Encryption Choice ## 
 currentChoiceBorder = Frame(root,
                             highlightbackground = resedaGreen,
@@ -160,8 +184,23 @@ messageVar = Button(currentChoiceBorder,
                      height = 2)
 messageVar.pack()
 
-
-
+encryptButtonBorder = Frame(root,
+                            highlightbackground = resedaGreen,
+                            highlightcolor = mint,
+                            bg = resedaGreen,
+                            highlightthickness= 5,
+                            bd = 0)
+encryptButtonBorder.place(relx = 0.01, rely = 0.4)
+encryptButton = Button(encryptButtonBorder,
+                         text = "Encrypt",
+                         font = "Arial 15",
+                         fg = eerieBlack,
+                         bg = feldgrau,
+                         highlightcolor = mint,
+                         width = 10, 
+                         height = 2,
+                         command = plaintextEncryption)
+encryptButton.pack()
 
 # Execute Tkinter
 root.mainloop()
