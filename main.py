@@ -2,6 +2,8 @@
 from tkinter import *
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad
+from Crypto.Util.Padding import unpad
 
 # Saving Color Codes #
 eerieBlack = "#1D1E18"
@@ -30,13 +32,16 @@ def aesFunc(plaintext):
     nonce = cipher.nonce
     stored_text = nonce + tag + ciphertext
 
-    print(stored_text)
+    #print(stored_text)
 
     cipher = AES.new(key, AES.MODE_EAX, nonce)
     data = cipher.decrypt_and_verify(ciphertext, tag)
-    print(data)
+    # print(data)
     decodedStr = str(data, encoding = 'utf-8')
-    print(decodedStr)
+    # print(decodedStr)
+    
+    encMessage.config(text = "Encrypted Message: " + stored_text.hex())
+    decMessage.config(text = "Decrypted Message: " + decodedStr)
 
 ## DES Encryption ##
 # not complete, still developing
@@ -46,10 +51,22 @@ def desFunc(plaintext):
 
 
 ## CBC Encryption
-## Not complete, still developing
 def cbcFunc(plaintext):
-    print("Mode: CBC")
-    print(plaintext)
+    cbcplaintext = plaintext.encode('utf-8')
+    key = get_random_bytes(16)
+    cipher = AES.new(key, AES.MODE_CBC)
+    ciphertext = cipher.encrypt(pad(cbcplaintext, AES.block_size))
+    iv = cipher.iv
+
+    decryptcipher = AES.new(key, AES.MODE_CBC, iv)
+    data = unpad(decryptcipher.decrypt(ciphertext), AES.block_size)
+    
+    # print(data)
+    decodedStr = str(data, encoding = 'utf-8')
+    # print(decodedStr)
+    
+    encMessage.config(text = "Encrypted Message: " + ciphertext.hex())
+    decMessage.config(text = "Decrypted Message: " + decodedStr)
 
 
 ## CFB Encryption ##
@@ -211,6 +228,7 @@ encMessageBorder = Frame(root,
                          bd = 0)
 encMessageBorder.place(relx = 0.01, rely = 0.47)
 encMessage = Label(encMessageBorder,
+                   wraplength= 410,
                    text = "Encrypted message will appear here!",
                    font = "Arial 15",
                    fg = eerieBlack,
@@ -229,6 +247,7 @@ decMessageBorder = Frame(root,
                          bd = 0)
 decMessageBorder.place(relx = 0.01, rely = 0.7)
 decMessage = Label(decMessageBorder, 
+                   wraplength= 200,
                    text= "Decrypted Message will appear here!",
                    font = "Arial 15",
                    fg = eerieBlack,
