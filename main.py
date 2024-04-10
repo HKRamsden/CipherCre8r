@@ -1,3 +1,9 @@
+#### Credits:
+#### Hannah Ramsden: UI design, App Design, AES Encryption
+#### Jaren Taylor: CTR Encryption
+#### Jonathan Legro: CBC Encryption
+#### Alec Ryden: 
+
 ## Imports ##
 from tkinter import *
 from Crypto.Cipher import AES
@@ -78,8 +84,21 @@ def cfbFunc(plaintext):
     
 ## CTR Encryption ##
 def ctrFunc(plaintext):
-    print("Mode: CTR")
-    print(plaintext)
+    ctrplaintext = plaintext.encode('utf-8')
+    key = get_random_bytes(16)
+    cipher = AES.new(key, AES.MODE_CTR)
+    ciphertext= cipher.encrypt(ctrplaintext)
+
+    #print(stored_text)
+
+    decryptcipher = AES.new(key, AES.MODE_CTR, nonce = cipher.nonce)
+    data = decryptcipher.decrypt(ciphertext)
+    # print(data)
+    decodedStr = str(data, encoding = 'utf-8')
+    # print(decodedStr)
+    
+    encMessage.config(text = "Encrypted Message: " + ciphertext.hex())
+    decMessage.config(text = "Decrypted Message: " + decodedStr)
 
 
 ### APP COMMANDS HERE ###
