@@ -1,12 +1,17 @@
 #### Credits:
-#### Hannah Ramsden: UI design, App Design, AES Encryption
+#### Hannah Ramsden: UI design, Logic Design, AES Encryption, CFB Encryption
 #### Jaren Taylor: CTR Encryption
 #### Jonathan Legro: CBC Encryption
-#### Alec Ryden: 
+#### Alec Ryden: --
 
 ## Imports ##
 from tkinter import *
+import base32hex
+import hashlib
+import string
+import random
 from Crypto.Cipher import AES
+from Crypto.Cipher import DES
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad
 from Crypto.Util.Padding import unpad
@@ -46,15 +51,34 @@ def aesFunc(plaintext):
     decodedStr = str(data, encoding = 'utf-8')
     # print(decodedStr)
     
-    encMessage.config(text = "Encrypted Message: " + stored_text.hex())
+    encMessage.config(text = "Encrypted Message: 0x" + stored_text.hex())
     decMessage.config(text = "Decrypted Message: " + decodedStr)
 
 ## DES Encryption ##
 # not complete, still developing
 # now in testing 
 def desFunc(plaintext):
-    print("Mode: DES")
-    print(plaintext)
+    plaintext += '\x00' * (8 - len(plaintext) % 8)
+    desplaintext = plaintext.encode('utf-8')
+    password = ''.join(random.choices(string.ascii_lowercase + string.digits, k = 8))
+    salt = get_random_bytes(8).hex()
+    key = password + salt
+    encodedKey = key.encode('utf-8')
+    m = hashlib.md5(encodedKey)
+    key = m.digest()
+    (dk, iv) = (key[:8], key[8:])
+    cipher = DES.new(dk, DES.MODE_CBC, iv)
+    ciphertext = cipher.encrypt(desplaintext)
+
+    decryptcipher = DES.new(dk, DES.MODE_CBC, iv)
+    data = decryptcipher.decrypt(ciphertext)
+    
+    # print(data)
+    decodedStr = str(data, encoding = 'utf-8')
+    # print(decodedStr)
+    
+    encMessage.config(text = "Encrypted Message: 0x" + ciphertext.hex())
+    decMessage.config(text = "Decrypted Message: " + decodedStr)
 
 
 ## CBC Encryption
@@ -72,12 +96,11 @@ def cbcFunc(plaintext):
     decodedStr = str(data, encoding = 'utf-8')
     # print(decodedStr)
     
-    encMessage.config(text = "Encrypted Message: " + ciphertext.hex())
+    encMessage.config(text = "Encrypted Message: 0x" + ciphertext.hex())
     decMessage.config(text = "Decrypted Message: " + decodedStr)
 
 
 ## CFB Encryption ##
-## Not complete, still developing
 def cfbFunc(plaintext):
     cfbplaintext = plaintext.encode('utf-8')
     key = get_random_bytes(16)
@@ -92,7 +115,7 @@ def cfbFunc(plaintext):
     decodedStr = str(data, encoding = 'utf-8')
     # print(decodedStr)
     
-    encMessage.config(text = "Encrypted Message: " + ciphertext.hex())
+    encMessage.config(text = "Encrypted Message: 0x" + ciphertext.hex())
     decMessage.config(text = "Decrypted Message: " + decodedStr)
 
     
@@ -111,12 +134,11 @@ def ctrFunc(plaintext):
     decodedStr = str(data, encoding = 'utf-8')
     # print(decodedStr)
     
-    encMessage.config(text = "Encrypted Message: " + ciphertext.hex())
+    encMessage.config(text = "Encrypted Message: 0x" + ciphertext.hex())
     decMessage.config(text = "Decrypted Message: " + decodedStr)
 
 
 ### APP COMMANDS HERE ###
-
 
 # Encrypt Plaintext Using Chosen Mode #
 def plaintextEncryption():
@@ -135,12 +157,6 @@ def plaintextEncryption():
                 cfbFunc(plainText)
             case "CTR":
                 ctrFunc(plainText)
-
-                
-    
-    
-    
-
 
 ### UI DESIGN HERE ###
 
