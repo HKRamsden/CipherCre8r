@@ -51,6 +51,7 @@ def aesFunc(plaintext):
 
 ## DES Encryption ##
 # not complete, still developing
+# now in testing 
 def desFunc(plaintext):
     print("Mode: DES")
     print(plaintext)
@@ -78,8 +79,21 @@ def cbcFunc(plaintext):
 ## CFB Encryption ##
 ## Not complete, still developing
 def cfbFunc(plaintext):
-    print("Mode: CFB")
-    print(plaintext)
+    cfbplaintext = plaintext.encode('utf-8')
+    key = get_random_bytes(16)
+    cipher = AES.new(key, AES.MODE_CFB)
+    ciphertext = cipher.encrypt(cfbplaintext)
+    iv = cipher.iv
+
+    decryptcipher = AES.new(key, AES.MODE_CFB, iv=iv)
+    data = decryptcipher.decrypt(ciphertext)
+    
+    # print(data)
+    decodedStr = str(data, encoding = 'utf-8')
+    # print(decodedStr)
+    
+    encMessage.config(text = "Encrypted Message: " + ciphertext.hex())
+    decMessage.config(text = "Decrypted Message: " + decodedStr)
 
     
 ## CTR Encryption ##
@@ -220,6 +234,7 @@ messageVar = Button(currentChoiceBorder,
                      height = 2)
 messageVar.pack()
 
+## Encryption Button ##
 encryptButtonBorder = Frame(root,
                             highlightbackground = resedaGreen,
                             highlightcolor = mint,
