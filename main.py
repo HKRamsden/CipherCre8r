@@ -1,8 +1,8 @@
 #### Credits:
-#### Hannah Ramsden: UI design, Logic Design, AES Encryption, CFB Encryption
+#### Hannah Ramsden: UI design, Logic Design, AES Encryption
 #### Jaren Taylor: CTR Encryption
 #### Jonathan Legro: CBC Encryption
-#### Alec Ryden: --
+#### Alec Ryden: CFB Encryption
 
 ## Imports ##
 from tkinter import *
