@@ -1,4 +1,4 @@
-# CipherCr8r
+# CipherCre8r
 ## Spring 2024 Final Project -- CS 428
 This project is a desktop based application that will allow the user to encode a strong of text in their chosen encryption method. 
 Chosen methods include: 
